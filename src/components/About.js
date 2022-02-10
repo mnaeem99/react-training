@@ -6,7 +6,13 @@ function About(props) {
 
     const leaders = props.leaders.map((leader) => {
         return (
-            <p>Leader {leader.name}</p>
+          <div className="col-12 mt-5">
+                <Media object src={leader.image} alt={leader.name} />
+                <Media heading>{leader.name}</Media>
+                <p>{leader.designation}</p>
+                <p>{leader.description}</p>
+          </div>
+          
         );
     });
 
@@ -49,10 +55,11 @@ function About(props) {
                     <Card>
                         <CardBody className="bg-faded">
                             <blockquote className="blockquote">
-                                <p className="mb-0">You better cut the pizza in four pieces because
+                                <p className="mb-1">You better cut the pizza in four pieces because
                                     I'm not hungry enough to eat six.</p>
                                 <footer className="blockquote-footer">Yogi Berra,
-                                <cite title="Source Title">The Wit and Wisdom of Yogi Berra,
+                                <cite title="Source Title">
+                                    The Wit and Wisdom of Yogi Berra,
                                     P. Pepe, Diversion Books, 2014</cite>
                                 </footer>
                             </blockquote>
