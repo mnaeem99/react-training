@@ -1,14 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import { Card, CardImg, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem, Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Button, Modal, ModalHeader, ModalBody, Label, Row, Col} from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Label, Row, Col} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './Loading';
+import { baseUrl } from '../shared/baseURL';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-const isNumber = (val) => !isNaN(Number(val));
-const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 class CommentForm extends React.Component {
     constructor(props) {
@@ -20,9 +20,9 @@ class CommentForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(values) {
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
         // console.log("Your Comment is: " + JSON.stringify(values));
-        // alert("Your Comment is: " + JSON.stringify(this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)));
+        // alert("Your Comment is: " + JSON.stringify(this.props.postComment(this.props.dishId, values.rating, values.author, values.comment)));
     }
     toggleModal() {
         this.setState({
@@ -44,12 +44,7 @@ class CommentForm extends React.Component {
                                 <Col md={12}>
                                     <Control.select model=".rating"
                                         className="form-control"
-                                        name="rating"
-                                        id="rating"
-                                        validators={{
-                                            required
-                                        }}
-                                    >
+                                        name="rating" id="rating" validators={{required}}>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -123,11 +118,10 @@ class CommentForm extends React.Component {
         );
     }
 }
-
 function RenderDetailItem({dish}){
     return (
         <Card>
-            <CardImg src={dish.image} alt={dish.name} />
+            <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                 <CardBody>
                 <CardTitle >{dish.name}</CardTitle>
                 <CardText>{dish.description}</CardText>
@@ -164,8 +158,26 @@ function RenderComment({comments}){
         );
     }
 }
-function RenderDish({dish, comments, addComment, dishId}){
-    if(dish!=null){    
+function RenderDish({dish, comments, postComment, dishId, isLoading, errMess}){
+    if (isLoading) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (errMess) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <h4>{errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if(dish!=null){    
         return(
             <div className="container">
             <div className="row">
@@ -185,7 +197,7 @@ function RenderDish({dish, comments, addComment, dishId}){
                 <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
                     <RenderComment comments={comments}/>
-                    <CommentForm dishId={dishId} addComment={addComment} />
+                    <CommentForm dishId={dishId} postComment={postComment} />
                 </div>
             </div>    
             </div>    
@@ -200,7 +212,7 @@ function RenderDish({dish, comments, addComment, dishId}){
 const DishesDetail = (props) => {
         return (          
             <div className="row">
-                <RenderDish dish={props.selectedDish} comments = {props.comments} addComment={props.addComment} dishId={props.selectedDish.id}/>
+                <RenderDish dish={props.selectedDish} comments = {props.comments} postComment={props.postComment} dishId={props.selectedDish.id} isLoading = {props.isLoading} errMess = {props.errMess} />
             </div>
         );
 }

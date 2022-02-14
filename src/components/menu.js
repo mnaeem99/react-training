@@ -2,12 +2,34 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
-function RenderMenuItem({dish}){
+import { Loading } from './Loading';
+import { baseUrl } from '../shared/baseURL';
+function RenderMenuItem({dish, isLoading, errMess}){
+  if (isLoading) {
+    return(
+        <div className="container">
+            <div className="row">            
+                <Loading />
+            </div>
+        </div>
+    );
+  }
+  else if (errMess) {
+    return(
+        <div className="container">
+            <div className="row"> 
+                <div className="col-12">
+                    <h4>{errMess}</h4>
+                </div>
+            </div>
+        </div>
+    );
+  }
+  else
     return (
         <Card key={dish.id} >   
             <Link to={`/menu/${dish.id}`} >
-              <CardImg width="100%" src={dish.image} alt={dish.name} />
+              <CardImg src={baseUrl + dish.image} alt={dish.name} />
               <CardImgOverlay>
                  <CardTitle>{dish.name}</CardTitle>
               </CardImgOverlay>
@@ -16,10 +38,10 @@ function RenderMenuItem({dish}){
     );
 }
 const Menu = (props) => {
-        const menu = props.dishes.map((dish) => {
-            return (
+    const menu = props.dishes.dishes.map((dish) => {
+      return (
               <div key={dish.id} className="col-12 col-md-5 m-1">
-                <RenderMenuItem dish={dish} />
+                <RenderMenuItem dish={dish} isLoading={props.dishes.isLoading} errMess={props.dishes.errMess}/>
               </div>
             );
         });
