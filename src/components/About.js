@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseURL';
 
 function About(props) {
-
+    if(props.leaders==null){
+        return <div></div>
+    }
     const leaders = props.leaders.map((leader) => {
         return (
           <div className="col-12 mt-5">
@@ -31,7 +33,7 @@ function About(props) {
             </div>
             <div className="row row-content">
                 <div className="col-12 col-md-6">
-                    <h2>Our History</h2>
+                    <h2 className='history'>Our History</h2>
                     <p>Started in 2010, Ristorante con Fusion quickly established itself as a culinary icon par excellence in Hong Kong. With its unique brand of world fusion cuisine that can be found nowhere else, it enjoys patronage from the A-list clientele in Hong Kong.  Featuring four of the best three-star Michelin chefs in the world, you never know what will arrive on your plate the next time you visit us.</p>
                     <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Peter Pan, that featured for the first time the world's best cuisines in a pan.</p>
                 </div>

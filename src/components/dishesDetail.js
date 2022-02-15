@@ -158,7 +158,7 @@ function RenderComment({comments}){
         );
     }
 }
-function RenderDish({dish, comments, postComment, dishId, isLoading, errMess}){
+function RenderDish({dish, comments, postComment, isLoading, errMess,commentsErrMess}){
     if (isLoading) {
         return(
             <div className="container">
@@ -197,7 +197,7 @@ function RenderDish({dish, comments, postComment, dishId, isLoading, errMess}){
                 <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
                     <RenderComment comments={comments}/>
-                    <CommentForm dishId={dishId} postComment={postComment} />
+                    <CommentForm dishId={dish.id} postComment={postComment}/>
                 </div>
             </div>    
             </div>    
@@ -212,7 +212,7 @@ function RenderDish({dish, comments, postComment, dishId, isLoading, errMess}){
 const DishesDetail = (props) => {
         return (          
             <div className="row">
-                <RenderDish dish={props.selectedDish} comments = {props.comments} postComment={props.postComment} dishId={props.selectedDish.id} isLoading = {props.isLoading} errMess = {props.errMess} />
+                <RenderDish dish={props.selectedDish} comments = {props.comments} postComment={props.postComment} isLoading = {props.isLoading} errMess = {props.errMess} commentsErrMess = {props.commentsErrMess} />
             </div>
         );
 }

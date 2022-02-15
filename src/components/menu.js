@@ -38,14 +38,17 @@ function RenderMenuItem({dish, isLoading, errMess}){
     );
 }
 const Menu = (props) => {
-    const menu = props.dishes.dishes.map((dish) => {
+  if(props.dishes==null){
+    <div className="row"></div>
+  }
+  else{
+        const menu = props.dishes.map((dish) => {
       return (
               <div key={dish.id} className="col-12 col-md-5 m-1">
                 <RenderMenuItem dish={dish} isLoading={props.dishes.isLoading} errMess={props.dishes.errMess}/>
               </div>
             );
         });
-
         return (
           <div className="container">
             <div className="row">
@@ -63,6 +66,7 @@ const Menu = (props) => {
             </div>
           </div>
         );
+  }
 }
 
 export default Menu;
