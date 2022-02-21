@@ -9,4 +9,10 @@ describe("<DishDetail />", () => {
     expect(enzymeWrapper).toBeDefined();
   });
   
+  // test("should have toggle modal open", () => {
+  //   const toggleModal = jest.fn();
+  //   const component = shallow(<DishesDetail toggleModal={toggleModal}/>);
+  //   component.find('#login').simulate('click');
+  //   expect(toggleModal.mock.calls.length).toHaveLength(1);
+  // });
 });

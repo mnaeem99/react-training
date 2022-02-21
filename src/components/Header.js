@@ -1,7 +1,9 @@
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Input, Label } from 'reactstrap';import { NavLink } from 'react-router-dom';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+//import { useState, useEffect } from 'react';
+// const [isNavOpen, setNavOpen] = useState(false);
+// const [isModalOpen, setModalOpen] = useState(false);
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +15,6 @@ class Header extends React.Component {
           isModalOpen: false
         };
       }
-
       toggleNav() {
         this.setState({
           isNavOpen: !this.state.isNavOpen
@@ -53,7 +54,7 @@ class Header extends React.Component {
                             </Nav>
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
-                                    <Button outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span> Login</Button>
+                                    <Button id='login' outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span> Login</Button>
                                 </NavItem>
                             </Nav>
                         </Collapse>

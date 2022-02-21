@@ -15,7 +15,7 @@ describe("Reducer",()=>{
             errMess: null,
             dishes:[]
         }
-        console.log(Dishes)
+        //console.log(Dishes)
         //expect(Dishes).toEqual(loadingState);
     });
 })
