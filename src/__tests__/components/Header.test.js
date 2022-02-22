@@ -38,5 +38,5 @@ describe("<Header />", () => {
     wrapper.find('NavbarToggler').simulate('click',{isNavOpen: true});
     expect(wrapper.state('isNavOpen')).toEqual(true);
   });
-  
+
 });

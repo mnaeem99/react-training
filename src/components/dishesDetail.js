@@ -47,7 +47,7 @@ function RenderComment({comments}){
         );
     }
 }
-function RenderDish({dish, comments, postComment, dishId, isLoading, errMess}){
+function RenderDish({dish, comments, postComment, isLoading, errMess}){
     if (isLoading) {
         return(
             <div className="container">
